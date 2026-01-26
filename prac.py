@@ -1,7 +1,6 @@
 age= 25
 height= 5.11
 name= 'ayaz'
-
 name= input('enter your name: ')
 gender= input(' enter your gender: ')
 age= int(input('enter your age: '))
