@@ -1,43 +1,28 @@
-try:
-    import numpy as np
-except ImportError:
-    print("Error: numpy is not installed. Please install it using 'pip install numpy'")
-    exit()
-
-#1d array
-sales = np.array([42000,55000,61000,48000,70000])
-print(sales)
-
-monthly_sales = np.array([
-    [258,369,698], #january
-    [369,258,698], #february
-    [698,258,369]  #march    
-])
-print (monthly_sales)
-
-yearly_sales = np.array([
-    [6555],   #2020
-    [7555],   #2021
-    [7000],   #2022
-])
-print(yearly_sales)
-
-zeros = np.zeros(5)
-print(zeros)
-
-sales = np.array([42000, 55000, 61000, 48000, 70000, 83000])
-print (sales[2])
-print (sales[0:6])
-
 import numpy as np
 
-data = np.array([
-    [42000, 31000, 18000],
-    [55000, 28000, 22000],
-    [61000, 35000, 19000]
-])
+# 12 months of revenue for a clothing store
+revenue = np.array([55000, 62000, 48000,
+                    71000, 83000, 79000,
+                    66000, 74000, 88000,
+                    91000, 95000, 110000])
 
-print(data.shape)   # (3, 3) → 3 rows, 3 columns
-print(data.ndim)    # 2      → 2 dimensional
-print(data.size)    # 9      → total 9 elements
-print(data.dtype)   # int64  → data type (integer)
+months = revenue.reshape(3,4)
+print(months)
+
+print(months.shape)
+
+print(months[1])
+
+print(months.ravel())
+
+products  = ["Laptop", "Phone", "Tablet", "Monitor", "Keyboard"]
+revenue   = np.array([200000, 150000, 80000, 60000, 30000])
+costs     = np.array([140000, 105000, 56000, 42000, 21000])
+
+profit = revenue - costs
+print(profit)
+profit_margin = profit/revenue*100
+print('margin:',profit_margin)
+forecast = revenue*1.15
+print('forecast:', forecast)
+
