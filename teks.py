@@ -37,3 +37,36 @@ print(np.sqrt(data))
 radians= np.radians(angles)
 print(np.sin(radians))
 print(np.exp(growth))
+
+import numpy as np
+
+# 4 quarters x 3 products (Laptop, Phone, Tablet)
+sales = np.array([
+    [42000, 31000, 18000],   # Q1
+    [55000, 28000, 22000],   # Q2
+    [61000, 35000, 19000],   # Q3
+    [70000, 40000, 25000]    # Q4
+])
+
+print(sales[1])
+print(sales[:,1])
+print(sales[2,2])
+
+print(sales[1:3, 0:2])
+
+salaries = np.array([
+    [45000, 52000, 48000, 51000],   # Sales
+    [62000, 58000, 65000, 60000],   # Tech
+    [38000, 42000, 40000, 45000]    # Support
+])
+
+target = 50000
+
+for item in np.nditer(salaries):
+
+    if item > target:
+        print(f"₹{item} ✅ Above target")
+    else:
+        print(f"₹{item} ❌ Below target")
+
+
