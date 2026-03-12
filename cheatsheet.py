@@ -48,10 +48,13 @@ np.where(data > 10, "High", "Low")  # IF logic → Categorizing
 
 # ==================ufuncs=================
 
-np.abs(array)       #→ remove negatives
-np.round(array, n)   #round to n decimal places
-np.sum(array)        #total
-np.mean(array)       #average
-np.max(array)        #highest
-np.min(array)        #lowest
-np.sqrt(array)       #square root
+# UFUNCS CHEATSHEET
+np.sqrt(array)           # square root
+np.sin(np.radians(arr))  # sine (convert degrees first)
+np.exp(array)            # exponential (e^x)
+np.abs(array)            # remove negatives
+np.round(array, 1)       # round to 1 decimal
+np.sum(array)            # total
+np.mean(array)           # average
+np.max(array)            # highest
+np.min(array)            # lowest

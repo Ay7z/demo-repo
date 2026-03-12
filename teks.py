@@ -26,3 +26,14 @@ print('margin:',profit_margin)
 forecast = revenue*1.15
 print('forecast:', forecast)
 
+import numpy as np
+
+data    = np.array([4, 16, 25, 36, 64, 100])
+angles  = np.array([0, 30, 45, 60, 90])
+growth  = np.array([1, 2, 3, 4, 5])
+
+print(np.sqrt(data))
+
+radians= np.radians(angles)
+print(np.sin(radians))
+print(np.exp(growth))
