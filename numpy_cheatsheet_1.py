@@ -157,3 +157,75 @@ correlation = np.corrcoef(ad_spend, revenue)[0][1]
 # np.sum(array)
 
 # ============================================
+# ============================================
+#         NUMPY PART 2 CHEATSHEET
+# ============================================
+
+import numpy as np
+
+# 1. VIEWS VS COPY
+original = np.array([10, 20, 30, 40, 50])
+view = original.view()    # shares memory - change view = original changes!
+copy = original.copy()    # independent  - change copy = original safe!
+print(view.base is original)   # True  = VIEW
+print(copy.base is original)   # False = COPY
+# Always use .copy() when modifying data!
+
+# 2. TRANSPOSE
+sales = np.array([[42000, 31000, 18000],
+                  [55000, 28000, 22000]])
+transposed = sales.T            # shortcut
+transposed = sales.transpose()  # longer way
+# Shape flips! (3,4) becomes (4,3)
+
+# 3. SWAPAXES
+swapped = sales.swapaxes(0, 1)  # same as .T for 2D
+# axis 0 = rows, axis 1 = columns
+
+# 4. CONCATENATION
+a = np.array([10, 20, 30])
+b = np.array([40, 50, 60])
+np.concatenate([a, b])           # 1D join
+np.concatenate([a, b], axis=0)   # add rows
+np.concatenate([a, b], axis=1)   # add columns
+
+# 5. AGGREGATE FUNCTIONS
+revenue = np.array([[120000, 85000],
+                    [135000, 92000],
+                    [98000,  78000]])
+np.sum(revenue)            # total everything
+np.sum(revenue, axis=1)    # total per ROW    (per quarter)
+np.sum(revenue, axis=0)    # total per COLUMN (per product)
+np.mean(revenue, axis=1)   # average per quarter
+np.mean(revenue, axis=0)   # average per product
+np.argmax(revenue)         # index of highest
+# axis=0 = down columns, axis=1 = across rows
+
+# 6. VECTORIZATION
+salaries = np.array([45000, 52000, 61000, 48000, 55000])
+increased = salaries * 1.12                              # 12% increase
+after_tax = salaries * 0.90                              # 10% deduction
+labels    = np.where(salaries > 55000, "Senior", "Junior")  # no loop needed
+
+# 7. REPEAT & TILE
+a = np.array([1, 2, 3])
+np.repeat(a, 3)   # [1 1 1 2 2 2 3 3 3] each element repeated
+np.tile(a, 3)     # [1 2 3 1 2 3 1 2 3] entire array repeated
+
+# 8. VSTACK & HSTACK
+h1 = np.array([[42000, 31000],
+               [55000, 28000]])
+h2 = np.array([[61000, 35000],
+               [70000, 40000]])
+product3 = np.array([[18000],
+                     [22000],
+                     [19000],
+                     [25000]])
+
+full_year = np.vstack([h1, h2])          # add rows    (4,2)
+complete  = np.hstack([full_year, product3])  # add columns (4,3)
+
+# vstack = np.concatenate(axis=0)
+# hstack = np.concatenate(axis=1)
+
+# ============================================
