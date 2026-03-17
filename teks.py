@@ -272,3 +272,67 @@ for i, name in enumerate(students) :
     else:
         grade = 'F ❌'
     print(f"{name} → {mark} | Grade: {grade}")
+    
+
+sales = np.array([42000, np.nan, 61000, np.nan, 70000])
+print('before :', sales)
+
+sales[np.isnan(sales)] = 0
+print('after :', sales)
+
+mean = np.nanmean(sales)
+print('mean: ', mean)
+
+sales = np.array([42000, np.nan, 61000, np.inf, 70000, np.nan])
+
+print('missing values: ', np.isnan(sales))
+print('indefinite values: ', np.isinf(sales))
+print('finite values;', np.isfinite(sales))
+
+mean =np.nanmean(sales[np.isfinite(sales)])
+sales[np.isinf(sales)] = mean
+sales[np.isnan(sales)] = mean
+
+print('cleaned sales:', sales)  
+print('average', np.mean(sales))
+print('total:', np.sum(sales))
+
+import numpy as np
+
+sales = np.array([42000, np.nan, 61000, np.inf, 70000, np.nan])
+
+print(np.isnan(sales))
+print(np.isinf(sales))
+print(np.isfinite(sales))
+
+mean = np.nanmean(sales[np.isfinite(sales)])
+sales[np.isinf(sales)] = mean
+sales[np.isnan(sales)] = mean
+
+print(np.sum(sales))
+print(np.mean(sales))
+
+import pandas as pd
+
+fruits = pd.Series(
+    [120, 85, 200, 150, 95, 175], name = 'fruit_prices',
+    index=["Apple", "Banana", "Grapes", "Orange", "Strawberry", "Mango"]
+)
+
+print(fruits.index, fruits.name, fruits.shape)
+
+print(fruits.loc['Grapes'])
+
+print(fruits.iloc[2])
+
+print(fruits.loc['Apple':'Orange'])
+
+print(fruits[fruits > 150])
+
+print(fruits[(fruits >= 100) & (fruits <= 150)])
+
+fruits['Apple'] = 130
+print(fruits)
+
+fruits['pineapple'] = 180
+print(fruits)

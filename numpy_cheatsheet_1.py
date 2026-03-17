@@ -229,3 +229,82 @@ complete  = np.hstack([full_year, product3])  # add columns (4,3)
 # hstack = np.concatenate(axis=1)
 
 # ============================================
+
+# ============================================
+#     NUMPY MISSING & INFINITE VALUES
+#           CHEATSHEET
+# ============================================
+
+import numpy as np
+
+# ── PROBLEM VALUES ───────────────────────────
+
+# np.nan   → missing value   → empty cell in Excel
+# np.inf   → positive infinity → too large, error
+# -np.inf  → negative infinity → too small, error
+
+# ── CREATING MESSY DATA ──────────────────────
+
+sales = np.array([42000, np.nan, 61000, np.inf, 70000, np.nan])
+
+# ── STEP 1 — FIND PROBLEMS ───────────────────
+
+np.isnan(sales)     # where is missing?  → [False True False False False True]
+np.isinf(sales)     # where is infinite? → [False False False True False False]
+np.isfinite(sales)  # where is normal?   → [True False True False True False]
+
+# ── STEP 2 — CALCULATE MEAN FROM NORMAL VALUES ONLY ──
+
+mean = np.nanmean(sales[np.isfinite(sales)])
+# picks only normal values → calculates mean
+# always calculate BEFORE fixing anything!
+
+# ── STEP 3 — FIX INFINITE ────────────────────
+
+sales[np.isinf(sales)] = mean    # replace inf with mean
+# or
+sales[np.isinf(sales)] = 0       # replace inf with 0
+
+# ── STEP 4 — FIX MISSING ─────────────────────
+
+sales[np.isnan(sales)] = mean    # replace nan with mean
+# or
+sales[np.isnan(sales)] = 0       # replace nan with 0
+
+# ── STEP 5 — CALCULATE SAFELY ────────────────
+
+np.sum(sales)     # total
+np.mean(sales)    # average
+np.max(sales)     # highest
+np.min(sales)     # lowest
+
+# ── NAN SAFE FUNCTIONS ───────────────────────
+# Use these when data still has nan
+
+np.nansum(sales)    # total   ignoring nan
+np.nanmean(sales)   # average ignoring nan
+np.nanmax(sales)    # highest ignoring nan
+np.nanmin(sales)    # lowest  ignoring nan
+
+# ── THE CLEANING ORDER ───────────────────────
+
+# Step 1 → FIND   → isnan, isinf, isfinite
+# Step 2 → MEAN   → from normal values only
+# Step 3 → FIX inf → sales[np.isinf(sales)] = mean
+# Step 4 → FIX nan → sales[np.isnan(sales)] = mean
+# Step 5 → USE    → sum, mean, max, min
+
+# ── QUICK REFERENCE ──────────────────────────
+
+# np.nan              → missing value
+# np.inf              → positive infinity
+# -np.inf             → negative infinity
+# np.isnan(data)      → find missing
+# np.isinf(data)      → find infinite
+# np.isfinite(data)   → find normal
+# np.nanmean(data)    → mean ignoring nan
+# np.nansum(data)     → sum ignoring nan
+# np.nanmax(data)     → max ignoring nan
+# np.nanmin(data)     → min ignoring nan
+
+# ============================================
