@@ -1,3 +1,6 @@
+from itertools import groupby
+from tokenize import Name
+
 import numpy as np
 
 # 12 months of revenue for a clothing store
@@ -336,3 +339,162 @@ print(fruits)
 
 fruits['pineapple'] = 180
 print(fruits)
+
+#==============================================
+
+import pandas as pd
+
+data = {
+    "Name":       ["Rahul", "Priya", "Amit", "Sneha", "Ravi", "Neha"],
+    "Age":        [25, 28, 32, 27, 35, 29],
+    "Department": ["Sales", "Marketing", "Tech", "Sales", "Tech", "Marketing"],
+    "Salary":     [45000, 52000, 61000, 48000, 70000, 55000]
+}
+
+df = pd.DataFrame(data)
+print(df)
+
+print(df.shape)
+print(df.columns)
+print(df.dtypes)
+
+print(df.iloc[0:3])
+
+print(df.tail(2))
+
+import pandas as pd
+
+data = {
+    "Name":       ["Rahul", "Priya", "Amit", "Sneha", 
+                   "Ravi", "Neha", "Vijay", "Pooja"],
+    "Department": ["Sales", "Tech", "Sales", "HR",
+                   "Tech", "HR", "Sales", "Tech"],
+    "City":       ["Hyderabad", "Mumbai", "Hyderabad", "Delhi",
+                   "Mumbai", "Hyderabad", "Delhi", "Mumbai"],
+    "Salary":     [45000, 72000, 51000, 38000,
+                   85000, 42000, 55000, 68000],
+    "Experience": [2, 5, 3, 1, 7, 2, 4, 6]
+}
+
+dff = pd.DataFrame(data)
+
+print(dff.value_counts('Department'))
+
+print(dff.groupby('City')['Salary'].mean())
+
+print(dff[dff['Salary'] > 60000])
+
+print(dff.sort_values("Salary", ascending=False).head(3))
+
+print(dff[dff['Experience'] > 3])
+
+
+import pandas as pd
+import numpy as np
+
+data = {
+    "Product":  ["Laptop", "Phone", "Tablet", "Laptop", 
+                 "Phone", "Tablet", "Laptop", "Phone"],
+    "Region":   ["North", "South", "North", "East",
+                 "West", "South", "West", "North"],
+    "Sales":    [85000, 45000, 32000, 91000,
+                 52000, 28000, 78000, 41000],
+    "Units":    [5, 8, 6, 7, 9, 4, 6, 7],
+    "Month":    ["Jan", "Jan", "Jan", "Feb",
+                 "Feb", "Feb", "Mar", "Mar"]
+}
+
+df = pd.DataFrame(data)
+print(df)
+
+
+print(df.groupby('Product')['Units'].sum())
+
+print(df.groupby('Region')['Sales'].sum())
+
+result = df.groupby('Month')['Sales'].mean()
+print(result.idxmax())
+
+print(df[df['Sales'] > 50000])
+
+print(df.groupby('Month')['Units'].mean())
+
+import pandas as pd
+
+data = {
+    "Employee": ["Rahul", "Priya", "Amit", "Sneha",
+                 "Ravi", "Neha", "Vijay", "Pooja",
+                 "Arjun", "Divya"],
+    "Dept":     ["Sales", "Tech", "Sales", "HR",
+                 "Tech", "HR", "Sales", "Tech",
+                 "Sales", "HR"],
+    "City":     ["Hyderabad", "Mumbai", "Delhi", "Hyderabad",
+                 "Mumbai", "Delhi", "Hyderabad", "Mumbai",
+                 "Delhi", "Hyderabad"],
+    "Salary":   [45000, 72000, 51000, 38000,
+                 85000, 42000, 55000, 68000,
+                 49000, 41000],
+    "Experience":[2, 5, 3, 1, 7, 2, 4, 6, 3, 2]
+}
+
+df = pd.DataFrame(data)
+print(df)
+
+print(df.groupby('Dept')['Salary'].sum())
+
+print(df.groupby('City')['Experience'].mean())
+
+print(df.groupby('Dept')['Employee'].count())
+
+print(df.groupby('Dept')['Salary'].max())
+
+print(df.groupby('City')['Salary'].min())
+
+Result = df.groupby('Dept')['Salary'].mean()
+print(Result.idxmax())
+
+Exp = df.groupby('City')['Experience'].mean()
+print(Exp.idxmax()) 
+
+import pandas as pd
+
+employees = pd.DataFrame({
+    "Name": ["Rahul", "Priya", "Amit", "Sneha", "Ravi"],
+    "Dept": ["Sales", "Marketing", "Tech", "HR", "IT"]
+})
+
+departments = pd.DataFrame({
+    "Dept":    ["Sales", "Tech", "HR", "Finance"],
+    "Manager": ["Ravi",  "Vijay", "Sneha", "Pooja"]
+})
+inner = pd.merge(employees, departments, on='Dept', how ='inner')
+print(inner)
+
+right = pd.merge(employees, departments, on='Dept', how ="right")
+print(right)
+
+import pandas as pd
+
+employees = pd.DataFrame({
+    "Name":   ["Rahul", "Priya", "Amit", "Sneha", "Ravi", "Neha"],
+    "Dept":   ["Sales", "Tech", "Sales", "HR", "Tech", "Marketing"],
+    "Salary": [45000, 72000, 51000, 38000, 85000, 55000]
+})
+
+departments = pd.DataFrame({
+    "Department": ["Sales", "Tech", "HR", "Finance"],
+    "Manager":    ["Vijay", "Arjun", "Pooja", "Rahul"],
+    "Budget":     [500000, 800000, 300000, 600000]
+})
+
+inner = pd.merge(employees, departments, left_on="Dept", right_on='Department', how = 'inner')
+print(inner)
+
+left = pd.merge(employees, departments, left_on = "Dept", right_on = 'Department', how = 'left')
+print(left)
+
+right = pd.merge(employees, departments, left_on = "Dept", right_on = 'Department', how = 'right')
+print(right)
+
+outer = pd.merge(employees, departments, left_on = "Dept", right_on = 'Department', how = 'outer')
+print(outer)
